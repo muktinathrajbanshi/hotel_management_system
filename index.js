@@ -45,3 +45,15 @@ displayBookings();
 form.reset();
 
 });
+
+function deleteBooking(index){
+
+bookings.splice(index,1);
+
+localStorage.setItem("bookings",JSON.stringify(bookings));
+
+displayBookings();
+
+}
+
+displayBookings();
