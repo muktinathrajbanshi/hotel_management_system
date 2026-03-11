@@ -24,3 +24,24 @@ bookingList.innerHTML += row;
 });
 
 }
+
+form.addEventListener("submit",(e)=>{
+
+e.preventDefault();
+
+const name = document.getElementById("guestName").value;
+const room = document.getElementById("roomType").value;
+const checkIn = document.getElementById("checkIn").value;
+const checkOut = document.getElementById("checkOut").value;
+
+const booking = {name,room,checkIn,checkOut};
+
+bookings.push(booking);
+
+localStorage.setItem("bookings",JSON.stringify(bookings));
+
+displayBookings();
+
+form.reset();
+
+});
