@@ -13,35 +13,49 @@
     </header>
 
     <div class="container">
+      <div class="form-section">
+        <h2>Room Booking</h2>
 
-<div class="form-section">
+        <form id="bookingForm">
+          <input type="text" id="guestName" placeholder="Guest Name" required />
 
-<h2>Room Booking</h2>
+          <select id="roomType" required>
+            <option value="">Select Room Type</option>
+            <option>Single Room</option>
+            <option>Double Room</option>
+            <option>Deluxe Room</option>
+            <option>Suite</option>
+          </select>
 
-<form id="bookingForm">
+          <label>Check In</label>
+          <input type="date" id="checkIn" required />
 
-<input type="text" id="guestName" placeholder="Guest Name" required>
+          <label>Check Out</label>
+          <input type="date" id="checkOut" required />
 
-<select id="roomType" required>
-<option value="">Select Room Type</option>
-<option>Single Room</option>
-<option>Double Room</option>
-<option>Deluxe Room</option>
-<option>Suite</option>
-</select>
+          <button type="submit">Book Room</button>
+        </form>
+      </div>
 
-<label>Check In</label>
-<input type="date" id="checkIn" required>
+      <div class="table-section">
+        <h2>Booking Records</h2>
 
-<label>Check Out</label>
-<input type="date" id="checkOut" required>
+        <table>
+          <thead>
+            <tr>
+              <th>Guest</th>
+              <th>Room</th>
+              <th>Check In</th>
+              <th>Check Out</th>
+              <th>Action</th>
+            </tr>
+          </thead>
 
-<button type="submit">Book Room</button>
+          <tbody id="bookingList"></tbody>
+        </table>
+      </div>
+    </div>
 
-</form>
-
-</div>
-
-
+    <script src="script.js"></script>
   </body>
 </html>
