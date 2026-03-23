@@ -1,3 +1,5 @@
+document.addEventListener("DOMContentLoaded", () => {
+
 const form = document.getElementById("form");
 const list = document.getElementById("list");
 const search = document.getElementById("search");
@@ -12,6 +14,14 @@ const prices = {
   Deluxe: 120,
   Suite: 200
 };
+
+function showToast(msg) {
+  const toast = document.createElement("div");
+  toast.className = "toast";
+  toast.innerText = msg;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 3000);
+}
 
 function daysBetween(a, b) {
   return (new Date(b) - new Date(a)) / (1000 * 60 * 60 * 24);
@@ -40,6 +50,8 @@ function render() {
         <td>${b.room}</td>
         <td>${b.days}</td>
         <td>$${b.price}</td>
+        <td>${b.status}</td>
+        <td>${b.payment}</td>
         <td>
           <button class="edit" onclick="edit(${i})">Edit</button>
           <button class="delete" onclick="del(${i})">Delete</button>
@@ -52,6 +64,9 @@ function render() {
   document.getElementById("totalBookings").innerText = filtered.length;
   document.getElementById("totalRevenue").innerText = total;
 
+  const avgStay = bookings.reduce((sum, b) => sum + b.days, 0) / bookings.length || 0;
+  document.getElementById("avgStay").innerText = avgStay.toFixed(1);
+
   localStorage.setItem("bookings", JSON.stringify(bookings));
 }
 
@@ -62,44 +77,63 @@ form.addEventListener("submit", (e) => {
   const room = document.getElementById("room").value;
   const checkIn = document.getElementById("checkIn").value;
   const checkOut = document.getElementById("checkOut").value;
+  const payment = document.getElementById("payment").value;
 
-  if (checkOut <= checkIn) return alert("Invalid dates");
+  const today = new Date().toISOString().split("T")[0];
 
-  if (!isAvailable(room, checkIn, checkOut, editIndex)) {
-    return alert("Room not available");
-  }
+  if (checkIn < today) return showToast("❌ Past date not allowed");
+  if (new Date(checkOut) <= new Date(checkIn)) return showToast("❌ Invalid dates");
+  if (!isAvailable(room, checkIn, checkOut, editIndex)) return showToast("❌ Room not available");
 
   const days = daysBetween(checkIn, checkOut);
   const price = days * prices[room];
 
-  const booking = { name, room, checkIn, checkOut, days, price };
+  const booking = { name, room, checkIn, checkOut, days, price, status: "Confirmed", payment };
 
-  if (editIndex === -1) {
-    bookings.push(booking);
-  } else {
-    bookings[editIndex] = booking;
-  }
+  if (editIndex === -1) bookings.push(booking);
+  else bookings[editIndex] = booking;
 
   editIndex = -1;
   form.reset();
   render();
+  showToast("✅ Booking Successful");
 });
 
-function del(i) {
+window.del = function(i) {
   bookings.splice(i, 1);
   render();
-}
+};
 
-function edit(i) {
+window.edit = function(i) {
   const b = bookings[i];
   document.getElementById("name").value = b.name;
   document.getElementById("room").value = b.room;
   document.getElementById("checkIn").value = b.checkIn;
   document.getElementById("checkOut").value = b.checkOut;
+  document.getElementById("payment").value = b.payment;
   editIndex = i;
-}
+};
 
 search.addEventListener("input", render);
 filter.addEventListener("change", render);
 
+document.getElementById("darkToggle").onclick = () => {
+  document.body.classList.toggle("dark");
+};
+
+window.downloadCSV = function() {
+  let csv = "Name,Room,Days,Price,Status,Payment\n";
+  bookings.forEach(b => {
+    csv += `${b.name},${b.room},${b.days},${b.price},${b.status},${b.payment}\n`;
+  });
+
+  const blob = new Blob([csv], { type: "text/csv" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "bookings.csv";
+  a.click();
+};
+
 render();
+
+});
