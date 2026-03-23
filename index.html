@@ -7,11 +7,15 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <header>🏨 Advanced Hotel Management</header>
+    <header>
+      🏨 Advanced Hotel Management
+      <button id="darkToggle">🌙</button>
+    </header>
 
     <div class="stats">
       <div class="stat-box">Bookings: <span id="totalBookings">0</span></div>
       <div class="stat-box">Revenue: $<span id="totalRevenue">0</span></div>
+      <div class="stat-box">Avg Stay: <span id="avgStay">0</span></div>
     </div>
 
     <div class="container">
@@ -31,8 +35,17 @@
           <input type="date" id="checkIn" required />
           <input type="date" id="checkOut" required />
 
+          <select id="payment" required>
+            <option value="">Payment Method</option>
+            <option>Cash</option>
+            <option>Card</option>
+            <option>Online</option>
+          </select>
+
           <button type="submit">Save Booking</button>
         </form>
+
+        <button onclick="downloadCSV()">⬇ Download CSV</button>
       </div>
 
       <div class="card table-section">
@@ -55,6 +68,8 @@
               <th>Room</th>
               <th>Days</th>
               <th>Price</th>
+              <th>Status</th>
+              <th>Payment</th>
               <th>Actions</th>
             </tr>
           </thead>
