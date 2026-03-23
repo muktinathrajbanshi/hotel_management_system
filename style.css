@@ -180,3 +180,21 @@ th {
     padding: 8px;
   }
 }
+
+/* ================= 640px ================= */
+@media (max-width: 640px) {
+  .stat-box {
+    width: 100%;
+  }
+
+  input,
+  select,
+  button {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  h3 {
+    font-size: 18px;
+  }
+}
