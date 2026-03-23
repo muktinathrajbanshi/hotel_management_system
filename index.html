@@ -3,59 +3,66 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hotel Management System</title>
+    <title>Advanced Hotel Management</title>
     <link rel="stylesheet" href="style.css" />
   </head>
-
   <body>
-    <header>
-      <h1>🏨 Hotel Management System</h1>
-    </header>
+    <header>🏨 Advanced Hotel Management</header>
+
+    <div class="stats">
+      <div class="stat-box">Bookings: <span id="totalBookings">0</span></div>
+      <div class="stat-box">Revenue: $<span id="totalRevenue">0</span></div>
+    </div>
 
     <div class="container">
-      <div class="form-section">
-        <h2>Room Booking</h2>
+      <div class="card form-section">
+        <h3>Room Booking</h3>
+        <form id="form">
+          <input type="text" id="name" placeholder="Guest Name" required />
 
-        <form id="bookingForm">
-          <input type="text" id="guestName" placeholder="Guest Name" required />
-
-          <select id="roomType" required>
-            <option value="">Select Room Type</option>
-            <option>Single Room</option>
-            <option>Double Room</option>
-            <option>Deluxe Room</option>
-            <option>Suite</option>
+          <select id="room" required>
+            <option value="">Room Type</option>
+            <option value="Single">Single</option>
+            <option value="Double">Double</option>
+            <option value="Deluxe">Deluxe</option>
+            <option value="Suite">Suite</option>
           </select>
 
-          <label>Check In</label>
           <input type="date" id="checkIn" required />
-
-          <label>Check Out</label>
           <input type="date" id="checkOut" required />
 
-          <button type="submit">Book Room</button>
+          <button type="submit">Save Booking</button>
         </form>
       </div>
 
-      <div class="table-section">
-        <h2>Booking Records</h2>
+      <div class="card table-section">
+        <h3>Bookings</h3>
+
+        <input type="text" id="search" placeholder="Search by name..." />
+
+        <select id="filter">
+          <option value="">All Rooms</option>
+          <option value="Single">Single</option>
+          <option value="Double">Double</option>
+          <option value="Deluxe">Deluxe</option>
+          <option value="Suite">Suite</option>
+        </select>
 
         <table>
           <thead>
             <tr>
-              <th>Guest</th>
+              <th>Name</th>
               <th>Room</th>
-              <th>Check In</th>
-              <th>Check Out</th>
-              <th>Action</th>
+              <th>Days</th>
+              <th>Price</th>
+              <th>Actions</th>
             </tr>
           </thead>
-
-          <tbody id="bookingList"></tbody>
+          <tbody id="list"></tbody>
         </table>
       </div>
     </div>
 
-    <script src="index.js"></script>
+    <script src="script.js"></script>
   </body>
 </html>
