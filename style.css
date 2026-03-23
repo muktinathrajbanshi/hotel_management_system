@@ -157,3 +157,26 @@ th {
     flex-wrap: wrap;
   }
 }
+
+/* ================= 720px ================= */
+@media (max-width: 720px) {
+  header {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .stat-box {
+    width: 45%;
+  }
+
+  table {
+    font-size: 14px;
+  }
+
+  th,
+  td {
+    padding: 8px;
+  }
+}
