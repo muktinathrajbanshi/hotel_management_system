@@ -198,3 +198,24 @@ th {
     font-size: 18px;
   }
 }
+
+/* ================= 480px ================= */
+@media (max-width: 480px) {
+  table {
+    font-size: 12px;
+  }
+
+  th,
+  td {
+    padding: 6px;
+  }
+
+  button {
+    font-size: 12px;
+    padding: 6px;
+  }
+
+  header {
+    font-size: 18px;
+  }
+}
