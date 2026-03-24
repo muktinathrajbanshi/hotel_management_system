@@ -219,3 +219,25 @@ th {
     font-size: 18px;
   }
 }
+
+/* ================= 320px ================= */
+@media (max-width: 320px) {
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .card {
+    padding: 10px;
+  }
+
+  input,
+  select {
+    font-size: 12px;
+  }
+
+  button {
+    font-size: 11px;
+  }
+}
